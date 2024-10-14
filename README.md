@@ -14,8 +14,10 @@
 
 <h3>User Features:</h3>
 <ul>
-  <li>Create, update, and delete blogs.</li>
+  <li>Create, read, update, and delete blogs.</li>
   <li>Request admin to feature a blog.</li>
+  <li>Can see the leaderboard to stay motivated.</li>
+  <li>Can comment and reply on another's blog.</li>
 </ul>
 
 <h3>Admin Features:</h3>
