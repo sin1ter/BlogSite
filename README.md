@@ -27,6 +27,7 @@
   <li>View reports on the total number of blogs, likes, tags, and users.</li>
   <li>Track leaderboard data for most active users and most-liked blogs.</li>
   <li>Visualize statistics using bar and pie charts.</li>
+  <li>Manage users.</li>
 </ul>
 
 <h2>Installation</h2>
