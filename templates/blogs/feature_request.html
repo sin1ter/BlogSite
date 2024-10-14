@@ -1,0 +1,33 @@
+{% extends "admin_base.html" %}
+{% block content %}
+
+<h2>Feature Requests</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Blog</th>
+            <th>Requested By</th>
+            <th>Requested At</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in feature_requests %}
+        <tr>
+            <td>{{ request.blog.title }}</td>
+            <td>{{ request.user.username }}</td>
+            <td>{{ request.requested_at }}</td>
+            <td>{{ request.get_status_display }}</td>
+            <td>
+                {% if request.status == 'pending' or request.status == 'approved' or request.status == 'rejected'%}
+                <a href="{% url 'approve_request' request.id %}" class="btn btn-success">Approve</a>
+                <a href="{% url 'reject_request' request.id %}" class="btn btn-danger">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

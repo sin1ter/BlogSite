@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Login</h4>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.username.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="mb-3">
+                            {{ form.password.label_tag }}
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.password.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    
+                    
+                    <div class="text-center mt-3">
+                        <small>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></small>
+                        <br>
+                        <small>Forget Password? <a href="{% url 'password_reset' %}">Reset Password</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+{% endblock content %}

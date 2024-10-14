@@ -1,0 +1,68 @@
+<div class="sidebar">
+    <h3 class="text-center text-white">Admin</h3>
+    <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+        <span class="icon">🏠</span>
+        <span class="text">Dashboard</span>
+    </a>
+    
+    <a href="#usersSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <span class="icon">👥</span>
+        <span class="text">Users</span>
+    </a>
+    <ul class="submenu list-unstyled collapse" id="usersSubmenu">
+        <li><a href="{% url "users" %}">Manage Users</a></li>
+    </ul>
+    
+    <a href="#productsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <span class="icon">📦</span>
+        <span class="text">Blogs</span>
+    </a>
+    <ul class="submenu list-unstyled collapse" id="productsSubmenu">
+        <li><a href="{% url "create_blog" %}">Add blog</a></li>
+        <li> <a href="{% url "tag_list" %}"> Tag List </a> </li>
+        <li><a href="{% url "add_tag" %}">Add Tag</a></li>
+    </ul>
+
+    <a href="{% url "feature_list" %}">
+        <span class="icon">📝</span>
+        <span class="text">Feature Request</span>
+    </a>
+
+    <a href="#">
+        <span class="icon">📝</span>
+        <span class="text">Orders</span>
+    </a>
+    <a href="{% url "reports" %}">
+        <span class="icon">📊</span>
+        <span class="text">Reports</span>
+    </a>
+
+    <a href="{% url "leaderboard" %}">
+        <span class="icon">📊</span>
+        <span class="text">Leaderboard</span>
+    </a>
+    <a href="{% url "home" %}">
+        <span class="text">BlogSite</span>
+    </a>
+    <a href="#">
+        <span class="icon">⚙️</span>
+        <span class="text">Settings</span>
+    </a>
+    <a href="{% url "password_change" %}">
+        <span class="text">Change Password</span>
+    </a>
+    <form method="post" action="{% url 'logout' %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn text-danger" style="border:none; background:none;">
+            <span class="icon">🚪</span>
+            <span class="text">Logout</span>
+        </button>
+    </form>
+    
+</div>
+
+<!-- Page content -->
+<div class="content">
+    <h2>Welcome to the Admin Dashboard</h2>
+    <p>Manage users, blogs, and more.</p>
+</div>

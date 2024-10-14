@@ -1,0 +1,66 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Website Report</h1>
+    
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Metric</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Blogs</td>
+                <td>{{ blog_count }}</td>
+            </tr>
+            <tr>
+                <td>Total Users</td>
+                <td>{{ user }}</td>
+            </tr>
+            <tr>
+                <td>Total Tags</td>
+                <td>{{ all_tag }}</td>
+            </tr>
+            <tr>
+                <td>Active Tags</td>
+                <td>{{ active_tag }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Top Blogger</h1>
+        
+        {% if most_written_blog %}
+            <p>The user with the most blogs is <strong>{{ most_written_blog.username }}</strong> with a total of <strong>{{ most_written_blog_count }}</strong> blogs!</p>
+        {% else %}
+            <p>No blogs available.</p>
+        {% endif %}
+        
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Top Liked Blogs</h1>
+        
+        {% if most_liked_blog %}
+        <div class="card-body">
+            <h4 class="card-title">{{ most_liked_blog.title }}</h4>
+            <p class="card-text">{{ most_liked_blog.content | truncatechars:100 }}</p>
+            <p class="text-muted">Written by {{ most_liked_blog.author.username }}</p>
+            <p class="text-bold">Total Likes: {{ most_liked_blog.like_count }}</p>
+        </div>
+        {% else %}
+            <p>No blogs available.</p>
+        {% endif %}
+        
+    </div>
+    
+    
+    <div class="mt-4 text-center">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Go Back to Dashboard</a>
+    </div>
+</div>
+{% endblock content %}

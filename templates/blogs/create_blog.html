@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Create Blog</h1>
+
+    <form method="post" id="blogForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Blog Title -->
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Blog Title</label>
+            {{ form.title }}  
+            <div class="invalid-feedback">Please enter a blog title.</div>
+        </div>
+        
+        <!-- Blog Content -->
+        <div class="mb-3">
+            <label for="id_content" class="form-label">Content</label>
+            {{ form.content }}  
+            <div class="invalid-feedback">Please enter content for your blog.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_images" class="form-label">Upload Image</label>
+            {{ form.images }}  
+            <div class="invalid-feedback">Please choose an image.</div>
+        </div>
+        
+        <!-- Blog Tags -->
+        <div class="mb-3">
+            <label for="tags" class="form-label">Select Tags</label>
+            {{ form.tags }}  
+            <small class="text-muted">Hold down Ctrl (Windows) or Command (Mac) to select multiple tags.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="feature_request" class="form-label">Request for featuring</label>
+            {{ form.feature_request }}  
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" id="submitBtn">Create Blog</button>
+    </form>
+</div>
+
+<!-- CSS for enhancing form style -->
+<style>
+    #blogForm .form-control, .form-select {
+        transition: border-color 0.3s;
+    }
+    #blogForm .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+    }
+    #submitBtn {
+        width: 100%;
+        padding: 10px;
+    }
+    .invalid-feedback {
+        display: none;
+        color: red;
+    }
+</style>
+
+<!-- JavaScript for form validation -->
+<script>
+    document.getElementById('blogForm').addEventListener('submit', function(event) {
+        var isValid = true;
+        var titleField = document.getElementById('id_title');
+        var contentField = document.getElementById('id_content');
+
+        // Basic validation for empty fields
+        if (!titleField.value.trim()) {
+            titleField.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            titleField.classList.remove('is-invalid');
+        }
+
+        if (!contentField.value.trim()) {
+            contentField.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            contentField.classList.remove('is-invalid');
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+{% endblock content %}

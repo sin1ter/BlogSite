@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Sign Up</h4>
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
+                    <form method="post" enctype='multipart/form-data' action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3"> 
+                                {{ field.label_tag }} 
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in field.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        
+                        <button type="submit" class="btn btn-primary w-100">Signup</button>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <small>Already have an account? <a href="{% url 'login' %}">Login</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+{% endblock content %}

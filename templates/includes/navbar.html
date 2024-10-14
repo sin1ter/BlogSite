@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="{% url 'home' %}">Blog Site</a>
+
+    <!-- Toggle button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left side of the navbar -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url "featured" %}">Featured</a>
+          </li>
+        {% endif %}
+      </ul>
+      
+      <!-- Right side of the navbar -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+          <!-- Create Blog button -->
+           {% if user.is_admin %}
+            <li class="nav-item">
+              <a class="nav-link btn btn-success text-white" href="{% url "dashboard" %}">Dashboard</a>
+            </li> &nbsp;
+           {% endif %}
+          <li class="nav-item">
+            <a class="nav-link btn btn-success text-white" href="{% url "create_blog" %}">Create Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'leaderboard' %}"><b>Leaderboard</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'own_blog' %}"><b>My Blogs</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}"><b>Welcome {{ user.username }}</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'password_change' %}"><b>Change Password</b></a>
+          </li>
+          <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Logout</button>
+              </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

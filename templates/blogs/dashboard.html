@@ -1,0 +1,140 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Admin Dashboard</h1>
+
+    <!-- New container for the charts (now placed first) -->
+    <div class="chart-container mb-5">
+        <h3 class="text-center mb-4">Dashboard Overview</h3>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Smaller canvas for bar chart -->
+                <canvas id="adminDashboardBarChart" style="width: 100%; height: 250px;"></canvas>
+            </div>
+            <div class="col-md-6">
+                <!-- Smaller canvas for pie chart -->
+                <canvas id="adminDashboardPieChart" style="width: 100%; height: 250px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information cards moved below the charts -->
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <h5>Total Blogs</h5>
+                    <h3>{{ blogs }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <h5> Featured </h5>
+                    <h3>{{ featured }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <h5>Total Tags</h5>
+                    <h3>{{ tags }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body">
+                    <h5>Total Likes</h5>
+                    <h3>{{ likes }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <h5>Total Users</h5>
+                    <h3>{{ users }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Bar Chart Script
+    var ctxBar = document.getElementById('adminDashboardBarChart').getContext('2d');
+    var myBarChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['Total Blogs', 'Total Featured', 'Total Tags', 'Total Likes', 'Featured Request', 'Total Users'],
+            datasets: [{
+                label: 'Admin Dashboard Stats',
+                data: [{{ blogs }}, {{ featured }}, {{ tags }}, {{ likes }}, {{ featured_request }}, {{ users }}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(255, 99, 132, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Allow for different aspect ratio
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Pie Chart Script
+    var ctxPie = document.getElementById('adminDashboardPieChart').getContext('2d');
+    var myPieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Pending Request', 'Approved Request', 'Rejected Request'],
+            datasets: [{
+                label: 'Admin Dashboard Stats',
+                data: [{{ pending_feature }}, {{ approved_feature }}, {{ reject_feature }}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Allow for different aspect ratio
+        }
+    });
+</script>
+
+{% endblock content %}

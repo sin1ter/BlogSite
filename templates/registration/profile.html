@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Profile Details</h4>
+                        
+                        <!-- Profile Picture -->
+                        {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" class="rounded-circle img-thumbnail mb-3" alt="{{ user.username }}'s Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% comment %} {% else %} {% endcomment %}
+                            {% comment %} <img src="{% static 'user.jpg' %}" class="rounded-circle img-thumbnail mb-3" alt="Default Profile Picture" style="width: 150px; height: 150px; object-fit: cover;"> {% endcomment %}
+                        {% endif %}
+                        
+                        <!-- User Details -->
+                        <ul class="list-group list-group-flush text-start">
+                            <li class="list-group-item">
+                                <strong>Username:</strong> {{ user.username }} 
+                                <a href="{% url 'update_profile' %}"> <i class="fa fa-edit"></i> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>First Name:</strong> {{ user.first_name }} 
+                                <a href="{% url 'update_profile' %}"> <i class="fa fa-edit"></i> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Last Name:</strong> {{ user.last_name }} 
+                                <a href="{% url 'update_profile' %}"> <i class="fa fa-edit"></i> </a>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Email:</strong> {{ user.email }} 
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Date of Birth:</strong> {{ user.date_of_birth }} 
+                            </li>
+                        </ul>
+                        <div class="text-center mt-4">
+                            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock content %}

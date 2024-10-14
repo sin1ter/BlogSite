@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <!-- Profile Information Section -->
+    <div class="profile-header">
+        {% comment %} <img src="{{ person.profile_picture_url }}" alt="Profile Picture" class="profile-picture"> {% endcomment %}
+        <h2>{{ profile_user.username }}</h2>
+        {% comment %} <p>{{ person.bio }}</p> {% endcomment %}
+        <p><strong>Email:</strong> {{ profile_user.email }}</p>
+    </div>
+
+    <!-- Blogs Section -->
+    <h3>{{ profile_user.username }}'s Blogs</h3>
+    Written by {{ profile_user.first_name }} {{ profile_user.last_name }}
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-12 blog-post">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ blog.title }}</h4>
+                    <p class="card-text">{{ blog.content }}</p>
+                    <p class="text-muted">Written by {{ profile_user.first_name }} {{ profile_user.last_name }}</p>
+
+                    <!-- Like and Comment Buttons -->
+                    <a href="{% url 'detail_blog' blog.id %}" class="btn btn-primary like-comment-btn">See More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

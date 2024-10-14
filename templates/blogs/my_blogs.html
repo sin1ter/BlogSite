@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <!-- Blogs Section -->
+    <h3>{{ user.username }}'s Blogs</h3>
+    Written by {{ user.username }}
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-12 blog-post">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ blog.title }}</h4>
+                    <p class="card-text">{{ blog.content|truncatechars:200 }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <strong>Tags: </strong>
+                            {% for tag in blog.tags.all %}
+                                <span class="badge bg-secondary">{{ tag.name }}</span>
+                            {% endfor %}
+                        </small>
+                    </p>
+
+                    <!-- Like and Comment Buttons -->
+                    <a href="{% url 'detail_blog' blog.id %}" class="btn btn-primary like-comment-btn">See More</a>
+                    <a href="{% url 'edit_blog' blog.id %}" class="btn btn-warning like-comment-btn">Edit</a>
+                    <form action="{% url "delete_blog" blog.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this blog?');">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

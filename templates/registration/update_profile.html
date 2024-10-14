@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Update Profile{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Update Profile</h4>
+
+                    <!-- Display the current profile picture -->
+                    <div class="text-center mb-3">
+                        {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" class="rounded-circle img-thumbnail" alt="{{ user.username }}'s Profile Picture" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% comment %} {% else %} {% endcomment %}
+                            {% comment %} <img src="{% static 'path_to_default_image.jpg' %}" class="rounded-circle img-thumbnail" alt="Default Profile Picture" style="width: 150px; height: 150px; object-fit: cover;"> {% endcomment %}
+                        {% endif %}
+                    </div>
+
+                    <!-- Profile Update Form -->
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'profile' %}" class="btn btn-secondary">Back to Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
