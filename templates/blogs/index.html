@@ -89,7 +89,7 @@
                             </form>                           
 
                             <!-- Comment Button -->
-                            <button class="btn btn-outline-secondary"><i class="fas fa-comment"></i> Comment</button>
+                            <a href="{% url 'add_comment' blog.id %}" class="btn btn-outline-secondary"><i class="fas fa-comment"></i> Comment</a>
 
                             <!-- Read More Button -->
                             <a href="{% url 'detail_blog' blog.id %}" class="btn btn-primary">Read More</a>
